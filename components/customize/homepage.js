@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { Row, Col, Divider, Input, Button, Image } from "antd";
 import { MediaContext } from "../../context/media";
-import Media from "../../components/media/Media";
+import Media from "../media/Media";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -54,7 +54,7 @@ const Homepage = () => {
       <Row>
         <Col span={24}>
           <Divider>
-            <h1>Customize home page</h1>
+            <h1>Customize Home Page</h1>
             <p>Set full width image, title and subtitle</p>
           </Divider>
         </Col>
