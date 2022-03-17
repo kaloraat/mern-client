@@ -7,7 +7,7 @@ import {
   CommentOutlined,
   UserSwitchOutlined,
   SettingOutlined,
-  DesktopOutlined,
+  BgColorsOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Layout } from "antd";
@@ -127,6 +127,11 @@ const AdminNav = () => {
             }}
           >
             <a className={activeName(`/admin/${auth.user?._id}`)}>Profile</a>
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="18" icon={<BgColorsOutlined />}>
+          <Link href="/admin/customize">
+            <a className={activeName(`/admin/customize`)}>Customize</a>
           </Link>
         </Menu.Item>
       </Menu>

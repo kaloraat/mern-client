@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Row, Col, Divider, Button } from "antd";
 import Head from "next/head";
 import FullWidthImage from "../components/pages/FullWidthImage";
@@ -9,11 +10,33 @@ import useCategory from "../hooks/useCategory";
 import Link from "next/link";
 import { ThunderboltOutlined } from "@ant-design/icons";
 import Footer from "../components/pages/Footer";
+import axios from "axios";
 
 const Home = () => {
+  // hooks
   const { numbers } = useNumbers();
   const { latestPosts } = usePost();
   const { categories } = useCategory();
+  // state
+  const [homepage, setHomepage] = useState({
+    fullWidthImage: null,
+    title: "",
+    subtitle: "",
+  });
+
+  useEffect(() => {
+    loadHomepage();
+  }, []);
+
+  const loadHomepage = async () => {
+    try {
+      const { data } = await axios.get("/page/home");
+      // console.log("get page in home ", data);
+      setHomepage(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -25,30 +48,31 @@ const Home = () => {
         />
       </Head>
       <div style={{ marginBottom: 50 }}></div>
-      <FullWidthImage />
+      <FullWidthImage {...homepage} />
+      {/* {JSON.stringify(homepage, null, 4)} */}
       {/* numbers */}
       <Row>
         <Col
           span={6}
-          style={{ marginTop: 100, textAlign: "center", fontSize: 20 }}
+          style={{ marginTop: 20, textAlign: "center", fontSize: 20 }}
         >
           <RenderProgress number={numbers.posts} name="Posts" />
         </Col>
         <Col
           span={6}
-          style={{ marginTop: 100, textAlign: "center", fontSize: 20 }}
+          style={{ marginTop: 20, textAlign: "center", fontSize: 20 }}
         >
           <RenderProgress number={numbers.categories} name="Categories" />
         </Col>
         <Col
           span={6}
-          style={{ marginTop: 100, textAlign: "center", fontSize: 20 }}
+          style={{ marginTop: 20, textAlign: "center", fontSize: 20 }}
         >
           <RenderProgress number={numbers.comments} name="Comments" />
         </Col>
         <Col
           span={6}
-          style={{ marginTop: 100, textAlign: "center", fontSize: 20 }}
+          style={{ marginTop: 20, textAlign: "center", fontSize: 20 }}
         >
           <RenderProgress number={numbers.users} name="Users" />
         </Col>
@@ -56,7 +80,7 @@ const Home = () => {
 
       {/* parallax image */}
       {/* parallax image */}
-      <div style={{ marginBottom: "90px" }}></div>
+      <div style={{ marginBottom: "20px" }}></div>
 
       <Row>
         <Col span={24}>
