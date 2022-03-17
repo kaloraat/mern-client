@@ -1,36 +1,55 @@
+import { useContext } from "react";
 import { Button } from "antd";
 import { SendOutlined } from "@ant-design/icons";
 import Link from "next/link";
+import { AuthContext } from "../../context/auth";
 
-const FullWidthImage = () => (
-  <>
-    <img
-      src="/images/bg4.jpeg"
-      style={{ width: "100%", height: "500px", overflow: "hidden" }}
-    />
-    <div
-      style={{
-        textAlign: "center",
-        marginTop: "-420px",
-        fontSize: "100px",
-        textShadow: "2px 2px 4px #000000",
-      }}
-    >
-      <h1 style={{ color: "#fff" }}>CMS</h1>
-      <p style={{ fontSize: "15px", marginTop: "-167px", color: "#fff" }}>
-        Content Management System
-      </p>
-      <div style={{ marginTop: "-9px" }}>
-        <Link href="/subscriber">
-          <a>
-            <Button size="large" icon={<SendOutlined spin />}>
-              Explore
-            </Button>
-          </a>
-        </Link>
+const FullWidthImage = () => {
+  // context
+  const [auth, setAuth] = useContext(AuthContext);
+
+  const roleBasedLink = () => {
+    if (auth?.user?.role === "Admin") {
+      return "/admin";
+    } else if (auth?.user?.role === "Author") {
+      return "/author";
+    } else if (auth?.user?.role === "Subscriber") {
+      return "/subscriber";
+    } else {
+      return "/signin";
+    }
+  };
+
+  return (
+    <>
+      <img
+        src="/images/bg4.jpeg"
+        style={{ width: "100%", height: "500px", overflow: "hidden" }}
+      />
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: "-420px",
+          fontSize: "100px",
+          textShadow: "2px 2px 4px #000000",
+        }}
+      >
+        <h1 style={{ color: "#fff" }}>CMS</h1>
+        <p style={{ fontSize: "15px", marginTop: "-167px", color: "#fff" }}>
+          Content Management System
+        </p>
+        <div style={{ marginTop: "-9px" }}>
+          <Link href={roleBasedLink()}>
+            <a>
+              <Button size="large" icon={<SendOutlined spin />}>
+                Explore
+              </Button>
+            </a>
+          </Link>
+        </div>
       </div>
-    </div>
-  </>
-);
+    </>
+  );
+};
 
 export default FullWidthImage;
