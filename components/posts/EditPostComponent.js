@@ -37,7 +37,7 @@ const EditPostComponent = ({ page = "admin" }) => {
 
   const { slug } = router.query;
 
-  console.log("PostId------------------> ", postId);
+  console.log("categories => ", categories);
 
   useEffect(() => {
     loadPost();
@@ -59,7 +59,7 @@ const EditPostComponent = ({ page = "admin" }) => {
       setPostId(_id);
       // push category names
       let arr = [];
-      data.categories.map((c) => arr.push(c.name));
+      data.post.categories.map((c) => arr.push(c.name));
       setCategories(arr);
       setLoading(false);
     } catch (err) {
